@@ -1,0 +1,23 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %} Add task {% endblock  %}
+{% block css_add %} <link rel="stylesheet" href="{% static 'main/css/style.css' %}"> {% endblock %}
+
+{% block content %}
+{% include "includes/navbar.html" %}
+
+<div class="forma">
+<form action="{% url 'main:add_task' %}" method="POST">
+    {% csrf_token %}
+    {{ form.title }}
+    {{ form.text }}
+
+<!--    <div><input class="radius" name="title" type="text" required="" placeholder="Task name"></div>-->
+<!--    <div><textarea class="radius" name="text" placeholder="Description" cols="28" rows="10"></textarea></div>-->
+    <div>
+        <button  class="radius" type="submit">Add task</button>
+    </div>
+</form>
+</div>
+{% endblock  %}

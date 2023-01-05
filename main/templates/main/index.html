@@ -1,0 +1,27 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %} Main {% endblock  %}
+{% block css_add %} <link rel="stylesheet" href="{% static 'main/css/style.css' %}"> {% endblock %}
+
+{% block content %}
+{% include "includes/navbar.html" %}
+<ul>
+{% for task in page_obj %}
+    <li class="list">
+        <p class="title">{{ task.title }}</p>
+        <form action="{% url 'main:change_status' pk=task.id %}" method="POST" class="form-container" id="change_status">
+            {% csrf_token %}
+            <div class="right f-r">
+                 <input type="checkbox" required="" name="status" class="check radius" value="" onchange="document.getElementById('change_status').submit()" checked >
+            </div>
+        </form>
+        <p class="text">{{ task.text }}</p>
+    </li>
+
+
+{% endfor %}
+</ul>
+{% include "includes/pagination.html" %}
+
+{% endblock  %}
